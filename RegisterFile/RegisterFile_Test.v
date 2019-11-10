@@ -45,6 +45,8 @@ module RegFile_sim();
         WriteReg = 0; 
         WriteData = 0;
 
+        $display("1");
+
         // Wait 100 ns for global RST to finish 
         #100; // 写
         RST = 1;
@@ -54,6 +56,8 @@ module RegFile_sim();
         WriteReg = 1;
         WriteData = 1;
 
+        $display("2");
+
         #100;   //写
         RST = 1;
         RegWre = 1;
@@ -61,6 +65,8 @@ module RegFile_sim();
         ReadReg2 = 0;
         WriteReg = 2;
         WriteData = 2;
+
+        $display("3");
 
         #100;   //写
         RST = 1;
@@ -70,6 +76,8 @@ module RegFile_sim();
         WriteReg = 3;
         WriteData = 3;
 
+        $display("4");
+
         #100;   //读
         RST = 1;
         RegWre = 0;
@@ -78,6 +86,8 @@ module RegFile_sim();
         WriteReg = 0;
         WriteData = 0;
 
+        $display("5");
+
         #100;   //读
         RST = 1;
         RegWre = 0;
@@ -85,6 +95,8 @@ module RegFile_sim();
         ReadReg2 = 2;
         WriteReg = 0;
         WriteData = 0;
+
+        $display("6");
     
         #100;   //读
         RST = 1;
@@ -93,6 +105,8 @@ module RegFile_sim();
         ReadReg2 = 2;
         WriteReg = 0;
         WriteData = 0;
+
+        $display("7");
 
         #200;   //延迟
 
@@ -103,5 +117,9 @@ module RegFile_sim();
         ReadReg2 = 0;
         WriteReg = 3;
         WriteData = 3;
+
+        $display("8");
+        $stop;
     end
+
 endmodule

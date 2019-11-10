@@ -1,0 +1,122 @@
+$date
+	Sun Nov 10 12:11:27 2019
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module RegFile_sim $end
+$var wire 32 ! ReadData2 [31:0] $end
+$var wire 32 " ReadData1 [31:0] $end
+$var reg 1 # CLK $end
+$var reg 1 $ RST $end
+$var reg 5 % ReadReg1 [4:0] $end
+$var reg 5 & ReadReg2 [4:0] $end
+$var reg 1 ' RegWre $end
+$var reg 32 ( WriteData [31:0] $end
+$var reg 5 ) WriteReg [4:0] $end
+$scope module uut $end
+$var wire 1 # CLK $end
+$var wire 1 $ RST $end
+$var wire 5 * ReadReg1 [4:0] $end
+$var wire 5 + ReadReg2 [4:0] $end
+$var wire 1 ' RegWre $end
+$var wire 32 , WriteData [31:0] $end
+$var wire 5 - WriteReg [4:0] $end
+$var wire 32 . ReadData2 [31:0] $end
+$var wire 32 / ReadData1 [31:0] $end
+$var integer 32 0 i [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b100000 0
+b0 /
+b0 .
+b0 -
+b0 ,
+b0 +
+b0 *
+b0 )
+b0 (
+0'
+b0 &
+b0 %
+0$
+0#
+b0 "
+b0 !
+$end
+#50
+1#
+#100
+0#
+b1 (
+b1 ,
+b1 )
+b1 -
+1'
+1$
+#150
+1#
+#200
+0#
+b10 (
+b10 ,
+b10 )
+b10 -
+#250
+1#
+#300
+0#
+b11 (
+b11 ,
+b11 )
+b11 -
+#350
+1#
+#400
+b1 "
+b1 /
+0#
+b0 (
+b0 ,
+b0 )
+b0 -
+b1 %
+b1 *
+0'
+#450
+1#
+#500
+b10 !
+b10 .
+b0 "
+b0 /
+0#
+b10 &
+b10 +
+b0 %
+b0 *
+#550
+1#
+#600
+b1 "
+b1 /
+0#
+b1 %
+b1 *
+#650
+1#
+#700
+0#
+#750
+1#
+#800
+0#
+#850
+1#
+#900

@@ -17,7 +17,7 @@ assign ReadData2 = (ReadReg2 == 0) ? 0 : RegFile[ReadReg2];
 
 always @ (negedge CLK or negedge RST) begin //只有在CLK和RST的下降沿才能触发
     if(RST == 0) begin  //RST信号为0时，将寄存器的内容清空
-        for(i = 1;i <= 31;i += 1) 
+        for(i = 1;i <= 31;i = i + 1) 
             RegFile[i] <= 0;
     end
     else if(RegWre == 1 && WriteReg != 0)  //当写能信号为1并且要写入的寄存器号不为零时将数据写入
