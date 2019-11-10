@@ -1,0 +1,76 @@
+$date
+	Sun Nov 10 14:39:04 2019
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module DataMemory_sim $end
+$var wire 32 ! DataOut [31:0] $end
+$var reg 32 " Address [31:0] $end
+$var reg 1 # CLK $end
+$var reg 1 $ MemRead $end
+$var reg 1 % MemWrite $end
+$var reg 32 & WriteData [31:0] $end
+$scope module uut $end
+$var wire 32 ' Address [31:0] $end
+$var wire 1 # CLK $end
+$var wire 1 $ MemRead $end
+$var wire 1 % MemWrite $end
+$var wire 32 ( WriteData [31:0] $end
+$var wire 32 ) DataOut [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+bz )
+b0 (
+b0 '
+b0 &
+1%
+1$
+0#
+b0 "
+bz !
+$end
+#15
+1#
+#30
+0#
+0%
+b1000 &
+b1000 (
+b1000 "
+b1000 '
+#45
+1#
+#60
+0#
+b1100 &
+b1100 (
+b1100 "
+b1100 '
+#75
+1#
+#90
+b1000 !
+b1000 )
+0#
+1%
+0$
+b1000 "
+b1000 '
+#105
+1#
+#120
+b1100 !
+b1100 )
+0#
+b1100 "
+b1100 '
+#135
+1#
+#150
