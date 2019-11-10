@@ -3,10 +3,12 @@ module ALU32(
     input [31 : 0] rega,
     input [31 : 0] regb,
     output reg [31 : 0] result,
-    output zero  
+    output zero, sign  
 );
 
 assign zero = (result == 0) ? 1 : 0;
+assign sign = (result[31] == 0) ? 0 : 1;
+
 always @(ALUopcode or rega or regb) begin
     case (ALUopcode)
         3'b000 : result = rega + regb;

@@ -10,6 +10,7 @@ reg [31:0] regb;
 //outputs
 wire [31:0] result;
 wire zero;
+wire sign;
 
 //Instantiate the Unit Under Test(UUT)
 ALU32 uut(
@@ -17,6 +18,7 @@ ALU32 uut(
     .rega(rega),
     .regb(regb),
     .result(result),
+    .sign(sign),
     .zero(zero)
 );
 
