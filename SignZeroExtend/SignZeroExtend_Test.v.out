@@ -1,0 +1,77 @@
+#! /usr/local/Cellar/icarus-verilog/10.3/bin/vvp
+:ivl_version "10.3 (stable)" "(v10_3)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x7ff5f5c02ea0 .scope module, "SignZeroExtend_sim" "SignZeroExtend_sim" 2 3;
+ .timescale 0 0;
+v0x7ff5f5c13a30_0 .var "ExtSel", 0 0;
+v0x7ff5f5c13ac0_0 .var/s "Immediate", 15 0;
+v0x7ff5f5c13b50_0 .net "Out", 31 0, L_0x7ff5f5c13cf0;  1 drivers
+S_0x7ff5f5c03000 .scope module, "uut" "SignZeroExtend" 2 12, 3 3 0, S_0x7ff5f5c02ea0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 16 "Immediate"
+    .port_info 1 /INPUT 1 "ExtSel"
+    .port_info 2 /OUTPUT 32 "Out"
+L_0x7ff5f5c13c20 .functor BUFZ 16, v0x7ff5f5c13ac0_0, C4<0000000000000000>, C4<0000000000000000>, C4<0000000000000000>;
+v0x7ff5f5c03160_0 .net "ExtSel", 0 0, v0x7ff5f5c13a30_0;  1 drivers
+v0x7ff5f5c131b0_0 .net "Immediate", 15 0, v0x7ff5f5c13ac0_0;  1 drivers
+v0x7ff5f5c13260_0 .net "Out", 31 0, L_0x7ff5f5c13cf0;  alias, 1 drivers
+L_0x102c2c008 .functor BUFT 1, C4<0000000000000000000000000000000>, C4<0>, C4<0>, C4<0>;
+v0x7ff5f5c13320_0 .net *"_s10", 30 0, L_0x102c2c008;  1 drivers
+L_0x102c2c050 .functor BUFT 1, C4<00000000000000000000000000000001>, C4<0>, C4<0>, C4<0>;
+v0x7ff5f5c133d0_0 .net/2u *"_s11", 31 0, L_0x102c2c050;  1 drivers
+v0x7ff5f5c134c0_0 .net *"_s13", 0 0, L_0x7ff5f5c13fa0;  1 drivers
+v0x7ff5f5c13560_0 .net *"_s16", 0 0, L_0x7ff5f5c140c0;  1 drivers
+v0x7ff5f5c13610_0 .net *"_s17", 15 0, L_0x7ff5f5c14160;  1 drivers
+L_0x102c2c098 .functor BUFT 1, C4<0000000000000000>, C4<0>, C4<0>, C4<0>;
+v0x7ff5f5c136c0_0 .net/2u *"_s19", 15 0, L_0x102c2c098;  1 drivers
+v0x7ff5f5c137d0_0 .net *"_s21", 15 0, L_0x7ff5f5c142e0;  1 drivers
+v0x7ff5f5c13880_0 .net *"_s3", 15 0, L_0x7ff5f5c13c20;  1 drivers
+v0x7ff5f5c13930_0 .net *"_s7", 31 0, L_0x7ff5f5c13e10;  1 drivers
+L_0x7ff5f5c13cf0 .concat8 [ 16 16 0 0], L_0x7ff5f5c13c20, L_0x7ff5f5c142e0;
+L_0x7ff5f5c13e10 .concat [ 1 31 0 0], v0x7ff5f5c13a30_0, L_0x102c2c008;
+L_0x7ff5f5c13fa0 .cmp/eq 32, L_0x7ff5f5c13e10, L_0x102c2c050;
+L_0x7ff5f5c140c0 .part v0x7ff5f5c13ac0_0, 15, 1;
+LS_0x7ff5f5c14160_0_0 .concat [ 1 1 1 1], L_0x7ff5f5c140c0, L_0x7ff5f5c140c0, L_0x7ff5f5c140c0, L_0x7ff5f5c140c0;
+LS_0x7ff5f5c14160_0_4 .concat [ 1 1 1 1], L_0x7ff5f5c140c0, L_0x7ff5f5c140c0, L_0x7ff5f5c140c0, L_0x7ff5f5c140c0;
+LS_0x7ff5f5c14160_0_8 .concat [ 1 1 1 1], L_0x7ff5f5c140c0, L_0x7ff5f5c140c0, L_0x7ff5f5c140c0, L_0x7ff5f5c140c0;
+LS_0x7ff5f5c14160_0_12 .concat [ 1 1 1 1], L_0x7ff5f5c140c0, L_0x7ff5f5c140c0, L_0x7ff5f5c140c0, L_0x7ff5f5c140c0;
+L_0x7ff5f5c14160 .concat [ 4 4 4 4], LS_0x7ff5f5c14160_0_0, LS_0x7ff5f5c14160_0_4, LS_0x7ff5f5c14160_0_8, LS_0x7ff5f5c14160_0_12;
+L_0x7ff5f5c142e0 .functor MUXZ 16, L_0x102c2c098, L_0x7ff5f5c14160, L_0x7ff5f5c13fa0, C4<>;
+    .scope S_0x7ff5f5c02ea0;
+T_0 ;
+    %vpi_call 2 20 "$dumpfile", "SignZeroExtend.vcd" {0 0 0};
+    %vpi_call 2 21 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x7ff5f5c02ea0 {0 0 0};
+    %delay 50, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x7ff5f5c13a30_0, 0, 1;
+    %pushi/vec4 7, 0, 16;
+    %store/vec4 v0x7ff5f5c13ac0_0, 0, 16;
+    %delay 50, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x7ff5f5c13a30_0, 0, 1;
+    %pushi/vec4 10, 0, 16;
+    %store/vec4 v0x7ff5f5c13ac0_0, 0, 16;
+    %delay 50, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x7ff5f5c13a30_0, 0, 1;
+    %pushi/vec4 7, 0, 16;
+    %store/vec4 v0x7ff5f5c13ac0_0, 0, 16;
+    %pushi/vec4 1, 0, 1;
+    %ix/load 4, 15, 0;
+    %flag_set/imm 4, 0;
+    %store/vec4 v0x7ff5f5c13ac0_0, 4, 1;
+    %delay 50, 0;
+    %vpi_call 2 41 "$stop" {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "SignZeroExtend_Test.v";
+    "./SignZeroExtend.v";

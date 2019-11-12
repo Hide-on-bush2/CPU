@@ -1,0 +1,45 @@
+$date
+	Tue Nov 12 23:05:53 2019
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module SignZeroExtend_sim $end
+$var wire 32 ! Out [31:0] $end
+$var reg 1 " ExtSel $end
+$var reg 16 # Immediate [15:0] $end
+$scope module uut $end
+$var wire 1 " ExtSel $end
+$var wire 16 $ Immediate [15:0] $end
+$var wire 32 % Out [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+bx %
+bx $
+bx #
+x"
+bx !
+$end
+#50
+b111 !
+b111 %
+b111 #
+b111 $
+0"
+#100
+b1010 !
+b1010 %
+b1010 #
+b1010 $
+1"
+#150
+b11111111111111111000000000000111 !
+b11111111111111111000000000000111 %
+b1000000000000111 #
+b1000000000000111 $
