@@ -1,27 +1,41 @@
 module RegisterFile(
-    input wire [4:0] ReadReg1,  //rs寄存器地址输入端口
-    input wire [4:0] ReadReg2,  //rt寄存器地址输入端口
-    input wire [4:0] WriteReg,  //存储写入数据的寄存器号
-    input wire [31:0] WriteData,//写入寄存器组的数据
-    input CLK, RegWre, RST,     //CLK为时钟沿信号，Reg为写能信号，RST为重置信号
+    input CLK, RegDst, RegWre, DBDataSrc,
+    input [5:0] Opcode,
+    input [4:0] rs, rt, rd,
+    input [10:0] im,
+    input [31:0] dataFromALU, dataFromRW,
 
-    output wire [31:0] ReadData1,//从寄存器号为ReadReg1的寄存器读出的数据
-    output wire [31:0] ReadData2//从寄存器号为ReadReg2的寄存器读出的数据
+    output [31:0] Data1, Data2
 );
 
-reg [31:0] RegFile[1:31];//寄存器组
-integer i;//临时变量
+wire [4:0] writeReg;//要写的寄存器端口
+wire [31:0] writeData;//要写的数据
 
-assign ReadData1 = (ReadReg1 == 0) ? 0 : RegFile[ReadReg1];
-assign ReadData2 = (ReadReg2 == 0) ? 0 : RegFile[ReadReg2];
+//RegDst为真时，处理R型指令，rd为目标操作数寄存器，为假时处理I型指令
+//详见控制信号作用表
+assign writeReg = RegDst ? rd : rt;
 
-always @ (negedge CLK or negedge RST) begin //只有在CLK和RST的下降沿才能触发
-    if(RST == 0) begin  //RST信号为0时，将寄存器的内容清空
-        for(i = 1;i <= 31;i = i + 1) 
-            RegFile[i] <= 0;
-    end
-    else if(RegWre == 1 && WriteReg != 0)  //当写能信号为1并且要写入的寄存器号不为零时将数据写入
-            RegFile[WriteReg] <= WriteData;         
+//ALUM2Reg为0时，使用来自ALU的输出，为1时，使用来自数据存储器（DM）
+//的输出，详见控制信号作用表
+assign writeData = DBDataSrc ? dataFromRW : dataFromALU;
+
+//初始化寄存器
+reg [31:0] register[0:31];
+integer i;
+initial begin
+    for(i = 0;i < 32;i++) 
+        register[i] <= 0;
 end
 
-endmodule
+//output:随register的变化而变化
+//Data1为ALU运算时的A，当指令为sll时，A的值从立即数的16位获得
+//Data2为ALU运算中的B，其值始终为rt
+assign Data1 = (Opcode == 6'b011000) ? im[10:6] : register[rs];
+assign Data2 = register[rt];
+
+always @ (negedge CLK or RegDst or RegWre or DBDataSrc or writeReg or writeData) begin
+    if(RegWre && writeReg)
+        register[writeReg] <= writeData;//防止数据写进0号寄存器
+end
+
+endmodule 

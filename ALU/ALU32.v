@@ -1,35 +1,49 @@
-module ALU32(
-    input [2 : 0] ALUopcode,
-    input [31 : 0] rega,
-    input [31 : 0] regb,
-    output reg [31 : 0] result,
-    output zero, sign  
-);
+module ALU(
+        //根据数据通路定义输入和输出
+        input [31:0] ReadData1,
+        input [31:0] ReadData2,
+        input [31:0] Ext,
+        input [31:0] Sa,
+        input [2:0] ALUop,
+        input ALUSrcA, ALUSrcB,
 
-assign zero = (result == 0) ? 1 : 0;
-assign sign = (result[31] == 0) ? 0 : 1;
+        output  zero, 
+        output reg [31:0] Result
+    );
 
-always @(ALUopcode or rega or regb) begin
-    case (ALUopcode)
-        3'b000 : result = rega + regb;
-        3'b001 : result = rega - regb;
-        3'b010 : result = rega & regb;
-        3'b011 : result = rega | regb;
-        3'b100 : result = (rega < regb) ? 1 : 0;//不带符号比较
-        3'b101 : begin
-                    if(rega < regb && 
-                        ((rega[31] == 0 && regb[31] == 0) || 
-                            (rega[31] == 1 && regb[31] == 1))) result = 1;
-                    
-                    else if(rega[31] == 0 && regb[31] == 1) result = 0;
-                    else if(rega[31] == 1 && regb[31] == 0) result = 1;
-                    else result = 0;
-                  end
-        default : begin
-                    result = 8'h00000000;
-                    $display("no match");
-                  end
-    endcase
-end
+    //两个输入端口
+    wire [31:0] InA;
+    wire [31:0] InB;
+
+    assign InA = ALUSrcA ? Sa : ReadData1;
+    assign InB = ALUSrcB ? Ext : ReadData2;
+
+    assign zero = (Result == 0) ? 1 : 0;
+
+    //只要输入的值发生变化，就执行计算
+    always @(*) begin
+        case(ALUop) //根据ALUop实现相应的运算功能
+            3'b000 : 
+                Result = InA + InB;
+            3'b001:
+                Result = InA - InB;
+            3'b010:
+                Result = InB << InA;
+            3'b011:
+                Result = InA | InB;
+            3'b100:
+                Result = InA & InB;
+            3'b101:
+                Result = (InA < InB) ? 1 : 0;
+            3'b110: 
+                Result = (((InA < InB) && (InA[31] == InB[31])) || 
+                    ((InA[31] == 1) && (InB[31] == 0))) ? 1 : 0;
+            3'b111:
+                Result = InA ^~ InB;
+            default:
+                Result = 32'h0000;
+        endcase
+    end
 
 endmodule
+

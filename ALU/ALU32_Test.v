@@ -1,131 +1,358 @@
 `include "ALU32.v"
 
-module ALU32_sim();
+module ALU_sim();
 
-//inputs
-reg [2:0] ALUopcode;
-reg [31:0] rega;
-reg [31:0] regb;
+    //input
+    reg [31:0] ReadData1;
+    reg [31:0] ReadData2;
+    reg [31:0] Ext;
+    reg [31:0] Sa;
+    reg [2:0] ALUop;
+    reg ALUSrcA, ALUSrcB;
 
-//outputs
-wire [31:0] result;
-wire zero;
-wire sign;
+    //output
+    wire zero;
+    wire [31:0] Result;
 
-//Instantiate the Unit Under Test(UUT)
-ALU32 uut(
-    .ALUopcode(ALUopcode),
-    .rega(rega),
-    .regb(regb),
-    .result(result),
-    .sign(sign),
-    .zero(zero)
-);
+    ALU uut(
+        .ReadData1(ReadData1),
+        .ReadData2(ReadData2),
+        .Ext(Ext),
+        .Sa(Sa),
+        .ALUop(ALUop),
+        .ALUSrcA(ALUSrcA),
+        .ALUSrcB(ALUSrcB),
+        .zero(zero),
+        .Result(Result)
+    );
 
-initial 
-    begin
+    initial begin
         //record
         $dumpfile("ALU32.vcd");
-        $dumpvars(0, ALU32_sim);
+        $dumpvars(0, ALU_sim);
 
-        //initial Inputs
-            ALUopcode = 0;
-            rega = 0;
-            regb = 0;
-        
-        //wait 100ns for global reset to finish
-        #100;
-            ALUopcode = 0;//rega + regb
-            rega = 1;
-            regb = 1;
+        //add1
+        ReadData1 = 0;
+        ReadData2 = 0;
+        Ext = 1;
+        Sa = 1;
+        ALUop = 3'b000;
+        ALUSrcA = 0;
+        ALUSrcB = 0;
 
-        #100;
-            ALUopcode = 1;//rega - regb
-            rega = 2;
-            regb = 1;
+        //add2
+        #50;
+        ReadData1 = 0;
+        ReadData2 = 0;
+        Ext = 1;
+        Sa = 1;
+        ALUop = 3'b000;
+        ALUSrcA = 1;
+        ALUSrcB = 0;
 
-        #100;
-            ALUopcode = 1;//rega - regb
-            rega = 1;
-            regb = 2;
+        //add3
+        #50;
+        ReadData1 = 0;
+        ReadData2 = 0;
+        Ext = 1;
+        Sa = 1;
+        ALUop = 3'b000;
+        ALUSrcA = 0;
+        ALUSrcB = 1;
 
-        #100;
-            ALUopcode = 2;//rega & regb
-            rega = 5;
-            regb = 1;
+        //add4
+        #50;
+        ReadData1 = 0;
+        ReadData2 = 0;
+        Ext = 1;
+        Sa = 1;
+        ALUop = 3'b000;
+        ALUSrcA = 1;
+        ALUSrcB = 1;
 
-        #100;
-            ALUopcode = 3;//rega | regb
-            rega = 4;
-            regb = 1;
+        //sub1
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 3;
+        Sa = 4;
+        ALUop = 3'b001;
+        ALUSrcA = 0;
+        ALUSrcB = 0;
 
-        #100;
-            ALUopcode = 4;//rega < regb?不带符号比较
-            rega = 4;
-            regb = 5;
+        //sub2
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 3;
+        Sa = 4;
+        ALUop = 3'b001;
+        ALUSrcA = 1;
+        ALUSrcB = 0;
 
-        #100;
-            ALUopcode = 4;//rega < regb?不带符号比较
-            rega = 5;
-            regb = 4;
+        //sub3
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 3;
+        Sa = 4;
+        ALUop = 3'b001;
+        ALUSrcA = 0;
+        ALUSrcB = 1;
 
-        #100;
-            ALUopcode = 5;//rega < regb?带符号比较
-            rega = 4;
-            regb = 5;
+        //sub4
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 3;
+        Sa = 4;
+        ALUop = 3'b001;
+        ALUSrcA = 1;
+        ALUSrcB = 1;
 
-        #100;
-            ALUopcode = 5;//reg < regb?带符号比较
-            rega = -1;
-            regb = -2;
+        //left_shift1
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 4;
+        ALUop = 3'b010;
+        ALUSrcA = 0;
+        ALUSrcB = 0;
 
-        #100;
-            ALUopcode = 5;//reg < regb?带符号比较
-            rega = -2;
-            regb = -1;
+        //left_shift2
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 4;
+        ALUop = 3'b010;
+        ALUSrcA = 1;
+        ALUSrcB = 0;
 
-        #100;
-            ALUopcode = 5;//reg < regb?带符号比较
-            rega = -1;
-            regb = 0;
+        //left_shift3
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 4;
+        ALUop = 3'b010;
+        ALUSrcA = 0;
+        ALUSrcB = 1;
 
-        #100;
-            ALUopcode = 5;//reg < regb?带符号比较
-            rega = 0;
-            regb = -2;
+        //left_shift4
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 4;
+        ALUop = 3'b010;
+        ALUSrcA = 1;
+        ALUSrcB = 1;
 
-        #100;
-            ALUopcode = 5;//reg < regb?带符号比较
-            rega = -1;
-            regb = -1;
-        
-        #100;
-            ALUopcode = 5;//reg < regb?带符号比较
-            rega = 0;
-            regb = 2;
+        //or1
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 4;
+        ALUop = 3'b011;
+        ALUSrcA = 0;
+        ALUSrcB = 0;
 
-        #100;
-            ALUopcode = 5;//reg < regb?带符号比较
-            rega = 1;
-            regb = 0;
+        //or2
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 4;
+        ALUop = 3'b011;
+        ALUSrcA = 1;
+        ALUSrcB = 0;
 
-        #100;
-            ALUopcode = 5;//reg < regb?带符号比较
-            rega = 2;
-            regb = 2;
+        //or3
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 4;
+        ALUop = 3'b011;
+        ALUSrcA = 0;
+        ALUSrcB = 1;
 
-        #100;
-            ALUopcode = 5;//reg < regb?带符号比较
-            rega = 0;
-            regb = 0;
+        //or4
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 4;
+        ALUop = 3'b011;
+        ALUSrcA = 1;
+        ALUSrcB = 1;
 
-        #100;
-            ALUopcode = 5;//reg < regb?带符号比较
-            rega = 9;
-            regb = 5;
+        //and1
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 4;
+        ALUop = 3'b100;
+        ALUSrcA = 0;
+        ALUSrcB = 0;
 
-        #100;
-            $stop;
+        //and2
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 4;
+        ALUop = 3'b100;
+        ALUSrcA = 1;
+        ALUSrcB = 0;
+
+        //and3
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 4;
+        ALUop = 3'b100;
+        ALUSrcA = 0;
+        ALUSrcB = 1;
+
+        //and4
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 4;
+        ALUop = 3'b100;
+        ALUSrcA = 1;
+        ALUSrcB = 1;
+
+        //不带符号比较1
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 1;
+        ALUop = 3'b101;
+        ALUSrcA = 0;
+        ALUSrcB = 0;
+
+        //不带符号比较2
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 1;
+        ALUop = 3'b101;
+        ALUSrcA = 1;
+        ALUSrcB = 0;
+
+        //不带符号比较3
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 1;
+        ALUop = 3'b101;
+        ALUSrcA = 0;
+        ALUSrcB = 1;
+
+        //不带符号比较4
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 1;
+        ALUop = 3'b101;
+        ALUSrcA = 1;
+        ALUSrcB = 1;
+
+        //带符号比较1
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 1;
+        ALUop = 3'b110;
+        ALUSrcA = 0;
+        ALUSrcB = 0;
+
+        //带符号比较2
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 1;
+        ALUop = 3'b110;
+        ALUSrcA = 1;
+        ALUSrcB = 0;
+
+        //带符号比较3
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 1;
+        ALUop = 3'b110;
+        ALUSrcA = 0;
+        ALUSrcB = 1;
+
+        //带符号比较4
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 1;
+        ALUop = 3'b110;
+        ALUSrcA = 1;
+        ALUSrcB = 1;
+
+        //nor1
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 1;
+        ALUop = 3'b111;
+        ALUSrcA = 0;
+        ALUSrcB = 0;
+
+        //nor2
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 1;
+        ALUop = 3'b111;
+        ALUSrcA = 1;
+        ALUSrcB = 0;
+
+        //nor3
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 1;
+        ALUop = 3'b111;
+        ALUSrcA = 0;
+        ALUSrcB = 1;
+
+        //nor4
+        #50;
+        ReadData1 = 1;
+        ReadData2 = 2;
+        Ext = 2;
+        Sa = 1;
+        ALUop = 3'b111;
+        ALUSrcA = 1;
+        ALUSrcB = 1;
+
+        //stop
+        #50;
+        $stop;
     end
 
 endmodule

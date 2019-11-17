@@ -4,20 +4,20 @@ module DataMemory_sim;
 
     // input
     reg CLK;
-    reg [31:0] Address;
-    reg [31:0] WriteData;
-    reg MemRead;
-    reg MemWrite;
+    reg [31:0] DAddr;
+    reg [31:0] DataIn;
+    reg RD;
+    reg WR;
 
     //otput
     wire [31:0] DataOut;
 
     DataMemory uut(
         .CLK(CLK),
-        .Address(Address),
-        .WriteData(WriteData),
-        .MemWrite(MemWrite),
-        .MemRead(MemRead),
+        .DAddr(DAddr),
+        .DataIn(DataIn),
+        .RD(RD),
+        .WR(WR),
         .DataOut(DataOut)
     );
 
@@ -30,32 +30,32 @@ module DataMemory_sim;
 
         //初始化
         CLK = 0;
-        Address = 0;
-        WriteData = 0;
-        MemRead = 1;    //为0，正常读；为1，输出高阻态（相当于开路）
-        MemWrite = 1;   //为0，写；为1，无操作
+        DAddr = 0;
+        DataIn = 0;
+        RD = 1;    //为0，正常读；为1，输出高阻态（相当于开路）
+        WR = 1;   //为0，写；为1，无操作
 
         #30;//30ns后，CLK下降沿写
-            Address = 8;
-            WriteData = 8;
-            MemRead = 1;
-            MemWrite = 0;
+            DAddr = 8;
+            DataIn = 8;
+            RD = 1;
+            WR = 0;
 
         #30;//60ns后，CLK下降沿写
-            Address = 12;
-            WriteData = 12;
-            MemRead = 1;
-            MemWrite = 0;
+            DAddr = 12;
+            DataIn = 12;
+            RD = 1;
+            WR = 0;
 
         #30;//90ns后开始读
-            Address = 8;
-            MemRead = 0;
-            MemWrite = 1;
+            DAddr = 8;
+            RD = 0;
+            WR = 1;
 
         #30;//120ns后开始读
-            Address = 12;
-            MemRead = 0;
-            MemWrite = 1;
+            DAddr = 12;
+            RD = 0;
+            WR = 1;
 
         #30;
             $stop;//150ns后停
