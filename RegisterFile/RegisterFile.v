@@ -1,8 +1,8 @@
 module RegisterFile(
     input CLK, RegDst, RegWre, DBDataSrc,
-    input [5:0] Opcode,
+    // input [5:0] Opcode,
     input [4:0] rs, rt, rd,
-    input [10:0] im,
+    // input [10:0] im,
     input [31:0] dataFromALU, dataFromRW,
 
     output [31:0] Data1, Data2
@@ -30,10 +30,11 @@ end
 //output:随register的变化而变化
 //Data1为ALU运算时的A，当指令为sll时，A的值从立即数的16位获得
 //Data2为ALU运算中的B，其值始终为rt
-assign Data1 = (Opcode == 6'b011000) ? im[10:6] : register[rs];
+// assign Data1 = (Opcode == 6'b011000) ? im[10:6] : register[rs];
+assign Data1 = register[rs];
 assign Data2 = register[rt];
 
-always @ (negedge CLK or RegDst or RegWre or DBDataSrc or writeReg or writeData) begin
+always @ (negedge CLK) begin
     if(RegWre && writeReg)
         register[writeReg] <= writeData;//防止数据写进0号寄存器
 end
