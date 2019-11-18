@@ -3,7 +3,7 @@ module ALU(
         input [31:0] ReadData1,
         input [31:0] ReadData2,
         input [31:0] Ext,
-        input [31:0] Sa,
+        input [4:0] Sa,
         input [2:0] ALUop,
         input ALUSrcA, ALUSrcB,
 
@@ -15,7 +15,7 @@ module ALU(
     wire [31:0] InA;
     wire [31:0] InB;
 
-    assign InA = ALUSrcA ? Sa : ReadData1;
+    assign InA = ALUSrcA ? {{27{1'b0}}, Sa} : ReadData1;
     assign InB = ALUSrcB ? Ext : ReadData2;
 
     assign zero = (Result == 0) ? 1 : 0;

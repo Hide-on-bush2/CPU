@@ -3,9 +3,9 @@ module InstructionMemory(
     input RW,//0 write, 1 read
 
     output [5:0] op,
-    output [5:0] rs, rt, rd,
+    output [4:0] rs, rt, rd,
     output [15:0] Immediate,
-    output [5:0] Sa
+    output [4:0] Sa
 );
 
 //因为实验要求指令存储器和数据存储器单元宽度一律使用8位，
