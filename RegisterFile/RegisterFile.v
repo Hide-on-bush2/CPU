@@ -5,11 +5,11 @@ module RegisterFile(
     // input [10:0] im,
     input [31:0] dataFromALU, dataFromRW,
 
-    output [31:0] Data1, Data2
+    output [31:0] Data1, Data2,
+    output [31:0] writeData
 );
 
 wire [4:0] writeReg;//要写的寄存器端口
-wire [31:0] writeData;//要写的数据
 
 //RegDst为真时，处理R型指令，rd为目标操作数寄存器，为假时处理I型指令
 //详见控制信号作用表
