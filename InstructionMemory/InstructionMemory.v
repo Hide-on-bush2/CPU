@@ -1,11 +1,13 @@
 module InstructionMemory(
+    input [3:0] PC4,
     input [31:0] IAddr,
     input RW,//0 write, 1 read
 
     output [5:0] op,
     output [4:0] rs, rt, rd,
     output [15:0] Immediate,
-    output [4:0] Sa
+    output [4:0] Sa,
+    output [31:0] JumpPC
 );
 
 //因为实验要求指令存储器和数据存储器单元宽度一律使用8位，
@@ -21,7 +23,7 @@ assign rt = IDataOut[20:16];
 assign rd = IDataOut[15:11];
 assign Immediate = IDataOut[15:0];
 assign Sa = IDataOut[10:6];
-
+assign JumpPC = {{PC4}, {IDataOut[27:2]}, {2'b00}};
 
 initial begin
     $readmemb("Instructions.txt", Mem);//从文件中读取指令集
