@@ -6,67 +6,56 @@
 :vpi_module "vhdl_sys";
 :vpi_module "v2005_math";
 :vpi_module "va_math";
-S_0x7fbf1ff00250 .scope module, "Keynoard_CLK" "Keynoard_CLK" 2 1;
+S_0x7fd363500360 .scope module, "Keyboard_CLK" "Keyboard_CLK" 2 1;
  .timescale 0 0;
     .port_info 0 /INPUT 1 "Button"
     .port_info 1 /INPUT 1 "BasysCLK"
     .port_info 2 /OUTPUT 1 "CPUCLK"
-L_0x7fbf1ff0b150 .functor NOT 1, v0x7fbf1ff0acd0_0, C4<0>, C4<0>, C4<0>;
-L_0x7fbf1ff0b1c0 .functor AND 1, v0x7fbf1ff0ae10_0, L_0x7fbf1ff0b150, C4<1>, C4<1>;
-L_0x7fbf1ff0b2d0 .functor NOT 1, v0x7fbf1ff0afc0_0, C4<0>, C4<0>, C4<0>;
-L_0x7fbf1ff0b380 .functor AND 1, v0x7fbf1ff0b060_0, L_0x7fbf1ff0b2d0, C4<1>, C4<1>;
-o0x106727008 .functor BUFZ 1, C4<z>; HiZ drive
-v0x7fbf1ff00460_0 .net "BasysCLK", 0 0, o0x106727008;  0 drivers
-o0x106727038 .functor BUFZ 1, C4<z>; HiZ drive
-v0x7fbf1ff0aa00_0 .net "Button", 0 0, o0x106727038;  0 drivers
-v0x7fbf1ff0aaa0_0 .net "CPUCLK", 0 0, L_0x7fbf1ff0b380;  1 drivers
-v0x7fbf1ff0ab30_0 .net *"_s0", 0 0, L_0x7fbf1ff0b150;  1 drivers
-v0x7fbf1ff0abe0_0 .net *"_s4", 0 0, L_0x7fbf1ff0b2d0;  1 drivers
-v0x7fbf1ff0acd0_0 .var "button_current_state", 0 0;
-v0x7fbf1ff0ad70_0 .net "button_edge", 0 0, L_0x7fbf1ff0b1c0;  1 drivers
-v0x7fbf1ff0ae10_0 .var "button_previous_state", 0 0;
-v0x7fbf1ff0aeb0_0 .var "counter", 20 0;
-v0x7fbf1ff0afc0_0 .var "delayed_button_current_state", 0 0;
-v0x7fbf1ff0b060_0 .var "delayed_button_previous_state", 0 0;
-E_0x7fbf1ff00410 .event posedge, v0x7fbf1ff00460_0;
-    .scope S_0x7fbf1ff00250;
+P_0x7fd363500690 .param/l "DURATION" 0 2 42, +C4<00000000000000001100001101010000>;
+o0x102a01008 .functor BUFZ 1, C4<z>; HiZ drive
+v0x7fd363503530_0 .net "BasysCLK", 0 0, o0x102a01008;  0 drivers
+o0x102a01038 .functor BUFZ 1, C4<z>; HiZ drive
+v0x7fd363403290_0 .net "Button", 0 0, o0x102a01038;  0 drivers
+v0x7fd363403320_0 .net "CPUCLK", 0 0, L_0x7fd363403b50;  1 drivers
+v0x7fd3634033b0_0 .net *"_s0", 31 0, L_0x7fd363403800;  1 drivers
+L_0x102a32008 .functor BUFT 1, C4<000000000000000000000>, C4<0>, C4<0>, C4<0>;
+v0x7fd363403440_0 .net *"_s3", 20 0, L_0x102a32008;  1 drivers
+L_0x102a32050 .functor BUFT 1, C4<00000000000000001100001101001111>, C4<0>, C4<0>, C4<0>;
+v0x7fd3634034d0_0 .net/2u *"_s4", 31 0, L_0x102a32050;  1 drivers
+v0x7fd363403560_0 .net *"_s6", 0 0, L_0x7fd363403970;  1 drivers
+v0x7fd363403600_0 .net *"_s9", 0 0, L_0x7fd363403a90;  1 drivers
+v0x7fd3634036a0_0 .var "cnt", 10 0;
+E_0x7fd3635009e0 .event posedge, v0x7fd363503530_0;
+L_0x7fd363403800 .concat [ 11 21 0 0], v0x7fd3634036a0_0, L_0x102a32008;
+L_0x7fd363403970 .cmp/eq 32, L_0x7fd363403800, L_0x102a32050;
+L_0x7fd363403a90 .reduce/nor L_0x7fd363403b50;
+L_0x7fd363403b50 .functor MUXZ 1, L_0x7fd363403b50, L_0x7fd363403a90, L_0x7fd363403970, C4<>;
+    .scope S_0x7fd363500360;
 T_0 ;
-    %wait E_0x7fbf1ff00410;
-    %load/vec4 v0x7fbf1ff0aa00_0;
-    %assign/vec4 v0x7fbf1ff0acd0_0, 0;
-    %load/vec4 v0x7fbf1ff0acd0_0;
-    %assign/vec4 v0x7fbf1ff0ae10_0, 0;
+    %wait E_0x7fd3635009e0;
+    %load/vec4 v0x7fd363403290_0;
+    %pad/u 32;
+    %cmpi/e 1, 0, 32;
+    %jmp/0xz  T_0.0, 4;
+    %load/vec4 v0x7fd3634036a0_0;
+    %pad/u 32;
+    %cmpi/e 50000, 0, 32;
+    %jmp/0xz  T_0.2, 4;
+    %load/vec4 v0x7fd3634036a0_0;
+    %assign/vec4 v0x7fd3634036a0_0, 0;
+    %jmp T_0.3;
+T_0.2 ;
+    %load/vec4 v0x7fd3634036a0_0;
+    %addi 1, 0, 11;
+    %assign/vec4 v0x7fd3634036a0_0, 0;
+T_0.3 ;
+    %jmp T_0.1;
+T_0.0 ;
+    %pushi/vec4 0, 0, 11;
+    %assign/vec4 v0x7fd3634036a0_0, 0;
+T_0.1 ;
     %jmp T_0;
     .thread T_0;
-    .scope S_0x7fbf1ff00250;
-T_1 ;
-    %wait E_0x7fbf1ff00410;
-    %load/vec4 v0x7fbf1ff0ad70_0;
-    %flag_set/vec4 8;
-    %jmp/0xz  T_1.0, 8;
-    %pushi/vec4 0, 0, 21;
-    %assign/vec4 v0x7fbf1ff0aeb0_0, 0;
-    %jmp T_1.1;
-T_1.0 ;
-    %load/vec4 v0x7fbf1ff0aeb0_0;
-    %addi 1, 0, 21;
-    %assign/vec4 v0x7fbf1ff0aeb0_0, 0;
-T_1.1 ;
-    %jmp T_1;
-    .thread T_1;
-    .scope S_0x7fbf1ff00250;
-T_2 ;
-    %wait E_0x7fbf1ff00410;
-    %load/vec4 v0x7fbf1ff0aeb0_0;
-    %cmpi/e 2000000, 0, 21;
-    %jmp/0xz  T_2.0, 4;
-    %load/vec4 v0x7fbf1ff0acd0_0;
-    %assign/vec4 v0x7fbf1ff0afc0_0, 0;
-T_2.0 ;
-    %load/vec4 v0x7fbf1ff0afc0_0;
-    %assign/vec4 v0x7fbf1ff0b060_0, 0;
-    %jmp T_2;
-    .thread T_2;
 # The file index is used to find the file name in the following table.
 :file_names 3;
     "N/A";
