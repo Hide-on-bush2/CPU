@@ -5,60 +5,61 @@ module Keyboard_CLK(
     output reg CPUCLK
 );
 
-// reg button_previous_state;
-// reg button_current_state;
 
-// wire button_edge;
+// parameter DURATION = 5; //test
+// reg [10:0] cnt;
 
-// always @ (posedge BasysCLK) begin
-//     button_current_state <= Button;
-//     button_previous_state <= button_current_state;
-// end
-
-// assign button_edge = button_previous_state & (~button_current_state);
-
-// reg [20:0] counter;
+// initial CPUCLK = 0;
+// initial cnt = 0;
 
 // always @ (posedge BasysCLK) begin
-//     if(button_edge)
-//         counter <= 21'h0;
-//     else
-//         counter <= counter + 1;
+//     if(Button == 1) begin
+//         if(cnt == DURATION) 
+//             cnt <= cnt;
+//         else
+//             cnt <= cnt + 1'b1;
+//     end
+//     else 
+//         cnt <= 11'b0;
 // end
 
-// reg delayed_button_previous_state;
-// reg delayed_button_current_state;
-
-// always @ (posedge BasysCLK) begin
-//     if(counter == 3) 
-//         delayed_button_current_state <= button_current_state;
-//     delayed_button_previous_state <= delayed_button_current_state;
+// always @ (cnt) begin
+//     if(cnt == DURATION) 
+//         CPUCLK = !CPUCLK;
 // end
-
-// assign CPUCLK = delayed_button_previous_state & (~delayed_button_current_state);
 
 // endmodule
 
-parameter DURATION = 5; //延时10ms
-reg [10:0] cnt;
+reg button_previous_state;
+reg button_current_state;
 
-initial CPUCLK = 0;
-initial cnt = 0;
+wire button_edge;
 
 always @ (posedge BasysCLK) begin
-    if(Button == 1) begin
-        if(cnt == DURATION) 
-            cnt <= cnt;
-        else
-            cnt <= cnt + 1'b1;
-    end
-    else 
-        cnt <= 11'b0;
+    button_current_state <= Button;
+    button_previous_state <= button_current_state;
 end
 
-always @ (cnt) begin
-    if(cnt == DURATION) 
-        CPUCLK = !CPUCLK;
+assign button_edge = button_previous_state & (~button_current_state);
+
+reg [20:0] counter;
+
+always @ (posedge BasysCLK) begin
+    if(button_edge)
+        counter <= 21'h0;
+    else
+        counter <= counter + 1;
 end
+
+reg delayed_button_previous_state;
+reg delayed_button_current_state;
+
+always @ (posedge BasysCLK) begin
+    if(counter == 3) 
+        delayed_button_current_state <= button_current_state;
+    delayed_button_previous_state <= delayed_button_current_state;
+end
+
+assign CPUCLK = delayed_button_previous_state & (~delayed_button_current_state);
 
 endmodule
