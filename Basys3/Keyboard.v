@@ -2,7 +2,7 @@ module Keyboard_CLK(
     input Button,
     input BasysCLK,
 
-    output reg CPUCLK
+    output  CPUCLK
 );
 
 
@@ -54,8 +54,9 @@ end
 reg delayed_button_previous_state;
 reg delayed_button_current_state;
 
+//21'h1E8480
 always @ (posedge BasysCLK) begin
-    if(counter == 3) 
+    if(counter == 21'h1E8480) 
         delayed_button_current_state <= button_current_state;
     delayed_button_previous_state <= delayed_button_current_state;
 end

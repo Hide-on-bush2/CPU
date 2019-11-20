@@ -9,9 +9,9 @@ reg RW;
 
 //output
 wire [5:0] op;
-wire [5:0] rs, rt, rd;
+wire [4:0] rs, rt, rd;
 wire [15:0] Immediate;
-wire [5:0] Sa;
+wire [4:0] Sa;
 
 InstructionMemory uut(
     .IAddr(IAddr),
