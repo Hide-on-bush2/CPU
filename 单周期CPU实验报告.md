@@ -19,6 +19,7 @@
 * 停机指令![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94lvw2b2pj3106050abd.jpg)
 
 实验补充要求：
+
 ```
 1.指令存储器和数据寄存器存储单元都使用8位，即一个字节
 的存储单位
@@ -29,6 +30,7 @@
 5.在实验报告中必须有指令执行的波形（截图）且图上必须
 包含关键信号，同时还要对关键信号以文字说明，这样才能
 说明该指令的正确性。
+
 ```
 
 ### ***<font size=3>将设计好的CPU烧写到开发板上，满足以下用户需求</font>***
@@ -40,6 +42,8 @@
     * 10时，显示RT寄存器地址：RT寄存器数据
     * 11时，显示ALU结果输出：DB总线数据
 * 指令执行采用单步（按键控制）执行方式，由开关（SW15，SW14）控制选择查看数码管上的相关信息，地址和数据。地址或数据的输出经一下模块代码转换到数码管上。
+
+
 ```
 module Display_7SegLED(
     input [3:0] display_data,
@@ -69,7 +73,9 @@ always @ (display_data) begin
 end
 
 endmodule
+
 ``` 
+
 * 复位信号（reset）接开关SW0，按键（单脉冲）接按键BTNR。
 
 ## <font size=4>三.实验原理</font>
@@ -100,6 +106,7 @@ endmodule
 其中表中各控制信号的含义是：![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94sksx13aj30z10u04a9.jpg)
 
 相关部件和引脚说明：
+
 * InstructMemory : 指令存储器
 * Iaddr : 指令存储器地址输入端口
 * IDataIn : 指令存储器数据输入端口（指令代码输入端口）
@@ -150,10 +157,12 @@ ALU是CPU中的负责逻辑运算的模块。该模块接受5个输入：
 * ALUSrcB : 决定进行计算的数据是ReadData2还是Ext
 
 该模块输出两个信号：
+
 * zero : 输出为0时为1，否则为0
 * Result : 进行运算后的结果
   
 代码如下：
+
 ```
 module ALU(
         //根据数据通路定义输入和输出
@@ -206,6 +215,7 @@ endmodule
 ```
 
 下面是该模块的测试代码：
+
 ```
 `include "ALU32.v"
 
@@ -582,6 +592,7 @@ DataMemory用于将数据存储到内存中和从内存中读取数据，该模�
 该模块输出数据32位DataOut，允许读时输出从内存读出的数据，不允许读时输出高阻态。
 
 模块代码为：
+
 ```
 module DataMemory(
     input CLK,
@@ -622,6 +633,7 @@ endmodule
 补充说明：因为实验要求数据存储器的存储单元限制为8位，所以要用4个存储单元来存储一个32位的数据。
 
 测试代码为：
+
 ```
 `include"DataMemory.v"
 
@@ -712,6 +724,7 @@ endmodule
 * JumpPC : 跳转PC的地址
 
 模块代码为：
+
 ```
 module InstructionMemory(
     input [3:0] PC4,
@@ -761,6 +774,7 @@ endmodule
 位的指令拆成4个8位的存储单元存储
 
 测试代码为：
+
 ```
 `include"InstructionMemory.v"
 `timescale 1ns / 1ps
@@ -821,6 +835,7 @@ end
 
 endmodule
 ```
+
 下图为测试波形：![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94uyexdhoj31rm0bqagf.jpg)
 
 ### <font size=3>**设计PC**
@@ -841,6 +856,7 @@ PC模块接受一个控制信号，决定将PC+4还是PC+4+Immedate还是PC + 4 
 * PC4 : 无条件跳转指令高4位填补用
 
 模块代码为：
+
 ```
 module PC(
     input CLK, Reset, PCWre,
@@ -874,6 +890,7 @@ endmodule
 ```
 
 测试代码为：
+
 ```
 `include"PC.v"
 
@@ -993,6 +1010,7 @@ endmodule
 * writeData : 要进行写的数据，放在输出端口为了在7段数码管上显示
 
 模块代码为：
+
 ```
 module RegisterFile(
     input CLK, RegDst, RegWre, DBDataSrc,
@@ -1040,6 +1058,7 @@ endmodule
 ```
 
 测试代码为：
+
 ```
 `include"RegisterFile.v"
 
@@ -1118,6 +1137,7 @@ module RegFile_sim();
 
     
 endmodule
+
 ```
 
 输出波形为：![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94vn4vyzvj31s00hu17h.jpg)
@@ -1132,6 +1152,7 @@ endmodule
 输出32位数据Out。
 
 模块代码为：
+
 ```
 
 
@@ -1148,9 +1169,11 @@ assign Out[15:0] = Immediate[15:0];
 assign Out[31:16] = ExtSel == 1 ? {16{Immediate[15]}} : 16'b0;
     
 endmodule
+
 ```
 
 测试代码为：
+
 ```
 `include"SignZeroExtend.v"
 
@@ -1196,6 +1219,7 @@ initial begin
 end
 
 endmodule
+
 ```
 
 测试波形为：![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94vtt9hz3j31ri07wjwp.jpg)
@@ -1210,6 +1234,7 @@ endmodule
 设计控制单元必须列出控制信号和指令的关系：![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94vymw7enj30fk04ct9t.jpg)
 
 然后根据该表assign对应的值:
+
 ```
 module ControlUnit(
     //根据数据通路图定义输入和输出
@@ -1257,6 +1282,7 @@ endmodule
 ### <font size=3>**设计SingleCycleCPU**
 
 设计完各个模块之后，接下来的工作是将各个模块的接口连接起来，组合成一个完整的SigleCycleCPU模块。模块代码为：
+
 ```
 `include"../ALU/ALU32.v"
 `include"../ControlUnit/CU.v"
@@ -1294,9 +1320,11 @@ RegisterFile RF(CLK, RegDst, ReWre, DBDataSrc, rs, rt, rd, Result, DMOut, Out1, 
 SignZeroExtend SZE(Immediate, ExtSel, Extout);
 
 endmodule
+
 ```
 
 接下来对整个CPU进行测试：
+
 ```
 `include"SingleCycleCPU.v"
 
@@ -1349,6 +1377,7 @@ module SingleCycleCPU_sim();
     end
 
 endmodule
+
 ```
 
 输出的波形是：![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94wehaqofj31s20can98.jpg)
@@ -1356,6 +1385,7 @@ endmodule
 ![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94wf762kaj31si0fstm2.jpg)
 
 其中要执行的指令存储在Instructions.mem文件中，指令内容和对应的机器码为：
+
 ```
 addiu $1, $0, 8     000010 00000 00010 0000000000001000
 ori $2, $0, 2       010010 00000 00010 0000000000000010
@@ -1472,6 +1502,7 @@ halt(stop)          11111100000000000000000000000000
 
 
 时钟分频的原理是定义一个计数器cnt，每当原始时钟（开发板的时钟BasysCLK）到来时加一。当计数器满2^N - 1后，再将分频时钟CLK_SLow翻转一次，这样就将CLK进行了2^N分频
+
 ```
 module CLK_slow(
     input CLK_100mhz,//100mhz的原始时钟信号
@@ -1495,6 +1526,7 @@ always @ (posedge CLK_100mhz) begin
 end
 
 endmodule 
+
 ```
 
 #### <font size = 2>消抖模块</font>
@@ -1503,6 +1535,7 @@ endmodule
 我们可以看到，但按键按下的那一刻，存在一段时间的抖动，同时在释放按键的一段时间里也是存在抖动的，这就可能导致状态在识别的时候可能检测为多次的按键，因为运行过程中普通的检测一次状态key为1就执行一次按键操作。所以我们在使用按键时往往需要消抖。
 
 输入消抖模块同样使用了N位一个计数器cnt，当时钟信号到来时，如果按键处于按下状态就将计数器+1，而如果现按键未按下，则清空计数器。将模块输出的防抖按键信号连接到cnt第N位，这样就保证持续按下2^N个时钟周期的时间才会输出按键信号，从而屏蔽了短暂的抖动信号。
+
 ```
 module Keyboard_CLK(
     input Button,
@@ -1576,6 +1609,7 @@ endmodule
 #### <font size = 2>显示模块</font>
 
 原理是，当输入一个4位的控制信号display_data时，输出一个8位的信号，将这个信号输入给7段数码管的引脚，就可以让数码管输出对应的数字。
+
 ```
 module Display_7SegLED(
     input [3:0] display_data,
@@ -1612,6 +1646,7 @@ endmodule
 #### <font size = 2>选择模块</font>
 
 接受4个要显示的数据和一个决定显示哪个数据的控制信号SelectCode，然后输出对应的display_data给显示模块
+
 ```
 module Select(
     input [15:0] In1, In2, In3, In4,
@@ -1630,11 +1665,13 @@ always @ (*) begin
 end
 
 endmodule
+
 ```
 
 #### <font size = 2>转换模块</font>
 
 对输入的时钟信号和数据进行转换并输出
+
 ```
 module Transfer(
     input CLK,
@@ -1673,6 +1710,7 @@ always @ (negedge CLK) begin
 end
 
 endmodule
+
 ```
 
 #### <font size = 2>Basys3模块：连接所有模块</font>
@@ -1767,9 +1805,11 @@ Keyboard_CLK keyboard(
 
 
 endmodule
+
 ```
 
 同时进行了测试，测试中认为产生按键时钟，测试代码为：
+
 ```
 `include"Basys3.v"
 
@@ -1814,6 +1854,7 @@ module basys_sim(
        
     end
 endmodule
+
 ```
 
 产生的波形为：![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94y7jfhnuj324q0dqwrv.jpg)
