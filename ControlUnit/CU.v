@@ -32,12 +32,12 @@ module ControlUnit(
     assign ExtSel = (OpCode == 6'b010000 || OpCode == 6'b010010) ? 0 : 1;
     assign RegDst = (OpCode == 6'b000010 || OpCode == 6'b010000 || OpCode == 6'b010010
         || OpCode == 6'b011100 || OpCode == 6'b100111) ? 0 : 1;
-    assign PCSrc[0] = ((OpCode == 6'b110000 && zero == 1) || (OpCode == 6'b110010 && zero == 0)) ? 1 : 0;
+    assign PCSrc[0] = ((OpCode == 6'b110000 && zero == 1) || (OpCode == 6'b110010 && zero == 0) || (OpCode == 6'b110001 && zero == 0)) ? 1 : 0;
     assign PCSrc[1] = (OpCode == 6'b111000) ? 1 : 0;
     assign ALUOp[2] = (OpCode == 6'b010000 || OpCode == 6'b010001 || OpCode == 6'b011100 || OpCode == 6'b110010) ? 1 : 0;
     assign ALUOp[1] = (OpCode == 6'b010010 || OpCode == 6'b010011 || OpCode == 6'b011000 || OpCode == 6'b110010) ? 1 : 0;
     assign ALUOp[0] = (OpCode == 6'b000001 || OpCode == 6'b010010 
-        || OpCode == 6'b011100 || OpCode == 6'b010011 || OpCode == 6'b110000) ? 1 : 0;
+        || OpCode == 6'b011100 || OpCode == 6'b010011 || OpCode == 6'b110000 || OpCode == 6'b110001) ? 1 : 0;
 endmodule
     
 // 110010

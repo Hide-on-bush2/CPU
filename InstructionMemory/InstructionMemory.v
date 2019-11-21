@@ -26,7 +26,7 @@ assign Sa = IDataOut[10:6];
 assign JumpPC = {{PC4}, {IDataOut[27:2]}, {2'b00}};
 
 initial begin
-    $readmemb("Instructions.txt", Mem);//从文件中读取指令集
+    $readmemb("Instructions.mem", Mem);//从文件中读取指令集
     IDataOut = 0;//指令初始化
 end
 
