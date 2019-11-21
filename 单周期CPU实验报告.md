@@ -1417,72 +1417,87 @@ halt(stop)          11111100000000000000000000000000
 #### <font size = 3>***add指令***</font>
 
 `add $3, $0, 2`
-![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94wob2d36j30fo0a0dk1.jpg)
+
+<img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94wob2d36j30fo0a0dk1.jpg" height = 50% width = 50%/>
 
 #### <font size = 3>***sub指令***</font>
 
 `sub $5, $3, $2`
-![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94wpzz34tj30fe0ae78x.jpg)
+
+<img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94wpzz34tj30fe0ae78x.jpg" height = 50% width = 50%/>
+
 
 #### <font size = 3>***addiu指令***</font>
 
 `addiu $1, $0, 8`
-![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94wr82ujvj30hq0asaf9.jpg)
+
+<img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94wr82ujvj30hq0asaf9.jpg" height = 50% width = 50%/>
 
 #### <font size = 3>***andi指令***</font>
 
 `andi $11, $2, 2`
-![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94wv1emuvj30fm0bcjwn.jpg)
+
+<img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94wv1emuvj30fm0bcjwn.jpg" height = 50% width = 50%/>
 
 #### <font size = 3>***and指令***</font>
 
 `and $4, $5, $2`
-![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94wwzufrbj30fo0beafb.jpg)
+
+<img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94wwzufrbj30fo0beafb.jpg" height = 50% width = 50%/>
 
 #### <font size = 3>***ori指令***</font>
 
 `ori $2, $0, 2`
-![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94wyrd2atj30fo0bgwjy.jpg)
+
+<img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94wyrd2atj30fo0bgwjy.jpg" height = 50% width = 50%/>
 
 #### <font size = 3>***or指令***</font>
 
 `or $8, $4, $2`
-![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94x2k3xzdj30fu0baaeq.jpg)
+
+<img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94x2k3xzdj30fu0baaeq.jpg" height = 50% width = 50%/>
 
 #### <font size = 3>***sll指令***</font>
 
 `sll $8, $8, 1`
-![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94x3der73j30f60asgpu.jpg)
+
+<img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94x3der73j30f60asgpu.jpg" height = 50% width = 50%/>
 
 #### <font size = 3>***slti指令***</font>
 
 `slti $6, $2, 4`
-![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94x4ha8y3j30fi0bq434.jpg)
+
+<img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94x4ha8y3j30fi0bq434.jpg" height = 50% width = 50%/>
 
 #### <font size = 3>***sw指令***</font>
 
 `sw $2, 4($1)`
-![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94x5qsnixj30fu0bcn1w.jpg)
+
+<img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94x5qsnixj30fu0bcn1w.jpg" height = 50% width = 50%/>
 
 #### <font size = 3>***beq指令***</font>
 
 `beq $7, $1, -2`
-![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94x6z6nhmj30k20buafb.jpg)
+
+<img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94x6z6nhmj30k20buafb.jpg" height = 50% width = 50%/>
 
 #### <font size = 3>***bne指令***</font>
 
 `bne $8, $1, -2`
-![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94x89hrudj30jy0audkp.jpg)
+
+<img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94x89hrudj30jy0audkp.jpg" height = 50% width = 50%/>
 
 #### <font size = 3>***bltz指令***</font>
 
 `bltz $10, -2`
-![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94x93xvcdj30ko0cwjxe.jpg)
+
+<img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94x93xvcdj30ko0cwjxe.jpg" height = 50% width = 50%/>
 
 #### <font size = 3>***addr指令***</font>
 
 `j 0x00000050`
-![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94xaevwf1j317c0asagj.jpg)
+
+<img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94xaevwf1j317c0asagj.jpg" height = 50% width = 50%/>
 
 ### <font size = 3>进行Basys烧写开发板</font>
 
@@ -1870,28 +1885,36 @@ CPU也正确处理了指令
 PS : 所有检验均只列举前4条指令
 
 * 验证PC :  nextPC 正确性（最后一张为Reset操作）
-  ![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94ycp2ihqj31400u0jvn.jpg)
-  ![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94ycl6auej31400u0q71.jpg)
-  ![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94ycn8fmaj31400u0q77.jpg)
-  ![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94ycp2ihqj31400u0jvn.jpg)
+
+  <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94ycp2ihqj31400u0jvn.jpg" height = 50% width = 50%/>
+  <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94ycl6auej31400u0q71.jpg" height = 50% width = 50%/>
+  <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94ycn8fmaj31400u0q77.jpg" height = 50% width = 50%/>
+  <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94ycp2ihqj31400u0jvn.jpg" height = 50% width = 50%/>
+  </br>
 
 * 验证rs寄存器地址 : rs数据 正确性
-  ![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94yfa6tnxj31400u0tcb.jpg)
-  ![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94yfa6tnxj31400u0tcb.jpg)
-  ![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94yfc5el9j31400u0jvl.jpg)
-  ![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94yfduqj3j31400u00ws.jpg)
+
+  <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94yfa6tnxj31400u0tcb.jpg" height = 50% width = 50%/>
+  <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94yfa6tnxj31400u0tcb.jpg" height = 50% width = 50%/>
+  <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94yfc5el9j31400u0jvl.jpg" height = 50% width = 50%/>
+  <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94yfduqj3j31400u00ws.jpg" height = 50% width = 50%/>
+   </br>
 
 * 验证rt寄存器地址 : rt数据 正确性
-  ![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94yh6v8rij31400u0q72.jpg)
-  ![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94yh8voijj31400u0wif.jpg)
-  ![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94yhaec9jj31400u078g.jpg)
-  ![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94yhci1rlj31400u0q6v.jpg)
+
+  <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94yh6v8rij31400u0q72.jpg" height = 50% width = 50%/>
+  <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94yh8voijj31400u0wif.jpg" height = 50% width = 50%/>
+  <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94yhaec9jj31400u078g.jpg" height = 50% width = 50%/>
+  <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94yhci1rlj31400u0q6v.jpg" height = 50% width = 50%/>
+ 
 
 * 验证ALUResult : DBData 正确性
-  ![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94yin2lnpj31400u0dk3.jpg)
-  ![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94yiojwx5j31400u042q.jpg)
-  ![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94yiq0nbyj31400u0q72.jpg)
-  ![](https://tva1.sinaimg.cn/large/006y8mN6ly1g94yirfy25j31400u0q71.jpg)
+
+  <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94yin2lnpj31400u0dk3.jpg" height = 50% width = 50%/>
+  <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94yiojwx5j31400u042q.jpg" height = 50% width = 50%/>
+  <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94yiq0nbyj31400u0q72.jpg" height = 50% width = 50%/>
+  <img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94yirfy25j31400u0q71.jpg" height = 50% width = 50%/>
+  </br>
 
 
 ## <font size = 4>实验心得</font>
